@@ -14,7 +14,6 @@ let calculator = {
     "operate" : (str) => {
         let split = str.split(' ');
         let a = +split[0], opr = split[1], b = +split[2];
-        console.log(a,b);
         if(isNaN(a) || isNaN(b)) return 0;
         return calculator[opr](a,b);
     }
@@ -43,7 +42,8 @@ let numberButtons = tokenButtons.filter((token) =>{
     return (val >= '0' && val <= '9');
 });
 numberButtons.forEach((numberButton) => numberButton.addEventListener('click',(e) => {
-    display.innerText += ` ${numberButton.innerText}`;
+    if(OPRERATORS.includes(display.innerText.at(-1))) display.innerText += ` ${numberButton.innerText}`;
+    else display.innerText += `${numberButton.innerText}`
 }));
 
 // when operators are pressed concat them to display
