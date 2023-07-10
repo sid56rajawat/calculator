@@ -68,6 +68,19 @@ operatorButtons.forEach((operatorButton) => {
     });
 });
 
-// ToDo: equal and CE
+// equal and CE
+let equal = document.querySelector(".equal");
+equal.addEventListener('click', (e) => {
+    let expr = display.textContent;
+    if(expr.split(" ").filter(i => i!= '').length === 3) display.innerText = calculator.operate(expr);
+    else return;
+});
 
+let clear = document.querySelector(".clear");
+clear.addEventListener('click',() => {
+    display.innerText = "";
+    console.clear();
+});
+
+// ToDo: handle operators meantto signs like -6 and +3 
 // module.exports = {...calculator};
