@@ -15,7 +15,7 @@ let calculator = {
         let split = str.split(' ');
         let a = +split[0], opr = split[1], b = +split[2];
         if(isNaN(a) || isNaN(b)) return 0;
-        return calculator[opr](a,b);
+        return Math.round(calculator[opr](a,b) * 10) / 10;
     }
 };
 
@@ -58,7 +58,15 @@ function evaluatePrevious(){
 }
 
 function concatToDisplay(e){
-    display.innerText += ` ${e.target.textContent}`;
+    if(display.textContent === "") return;
+    if(OPRERATORS.includes(display.innerText.at(-1))){
+        let str = display.textContent;
+        let strSplit = str.split('');
+        strSplit.pop();
+        strSplit.push(`${e.target.textContent}`);
+        display.innerText = strSplit.join('');
+    }
+    else display.innerText += ` ${e.target.textContent}`;
 }
 let operatorButtons = tokenButtons.filter((token) => OPRERATORS.includes(token.innerText));
 operatorButtons.forEach((operatorButton) => {
@@ -82,5 +90,4 @@ clear.addEventListener('click',() => {
     console.clear();
 });
 
-// ToDo: handle operators meantto signs like -6 and +3 
 // module.exports = {...calculator};
